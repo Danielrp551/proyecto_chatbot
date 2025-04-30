@@ -87,7 +87,9 @@ class GoogleCalendarManager:
         elif fecha == '2025-04-19': # Sabado 19 Feriado
             working_hours = []
         elif fecha == '2025-04-23': # Miercoles 23 
-            working_hours = [{"start": dt.time(15, 30), "end": dt.time(20, 30)}]        
+            working_hours = [{"start": dt.time(15, 30), "end": dt.time(20, 30)}]     
+        elif fecha == '2025-05-01': # Jueves 1 Feriado
+            working_hours = []   
 
         start_of_day = lima_tz.localize(dt.datetime.combine(input_date, dt.time(0, 0)))
         end_of_day = lima_tz.localize(dt.datetime.combine(input_date, dt.time(23, 59, 59)))
