@@ -15,7 +15,7 @@ class OpenAIManager:
             messages=[
                 {"role": "system", "content": prompt_consulta_v4(cliente,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)},
             ],
-            max_tokens=250,
+            max_completion_tokens=250,
         )
         return response.choices[0].message.content.strip()
     
@@ -26,7 +26,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_consulta_v4(cliente,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)
                  + f"\n Dile que su pago ya fue registrado con éxito y su cita ha sido confirmada. ¡Nos vemos en la cita!"},
             ],
-            max_tokens=250,
+            max_completion_tokens=250,
         )
         return response.choices[0].message.content.strip()
     
@@ -40,7 +40,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_intencionesv3(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada},
                 #{"role": "user", "content": conversacion_actual_formateada}
             ],
-            max_tokens=100,
+            max_completion_tokens=100,
         )
         #print("Conversación actual formateada:", conversacion_actual_formateada)
         #print("Prompt intenciones:", prompt_intenciones(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada)
@@ -54,7 +54,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_consulta_v5(cliente_mysql,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)
                     + f"\n Los horarios disponibles para que le digas al cliente son {horarios_disponibles}"},
             ],
-            max_tokens=150,
+            max_completion_tokens=150,
         )
         return response.choices[0].message.content.strip()
 
@@ -65,7 +65,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_consulta_v5(cliente_mysql,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)
                     + "\n Dile que la cita ha sido reservada para el ... y mándale la información para pagar vía Yape. Indícale que debe realizar el pago total o, si lo prefiere, un abono parcial (mínimo 30 soles) a través de Yape al número 943507504. Recuerda pedirle que, una vez efectuado el pago, nos envíe el número de operación del yapeo para poder registrar su pago. "},
             ],
-            max_tokens=150,
+            max_completion_tokens=150,
         )
         return response.choices[0].message.content.strip()
     
@@ -76,7 +76,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_consulta_v5(cliente_mysql,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)
                     + "\n Dile que en esta fecha y horario el cliente ya tiene una cita agendada. Responde adecuadamente. }"},
             ],
-            max_tokens=150,
+            max_completion_tokens=150,
         )
         return response.choices[0].message.content.strip()
     
@@ -87,7 +87,7 @@ class OpenAIManager:
                 {"role": "system", "content": prompt_consulta_v5(cliente_mysql,cliente_nuevo,campania) + formatear_conversacion(conversation_actual)
                     },
             ],
-            max_tokens=150,
+            max_completion_tokens=150,
         )
         return response.choices[0].message.content.strip()
 
@@ -97,7 +97,7 @@ class OpenAIManager:
             messages=[
                 {"role": "system", "content": prompt_lead_estado(lead) },
             ],
-            max_tokens=100,
+            max_completion_tokens=100,
         )
         print("Prompt lead :", prompt_lead_estado(lead))
         return response.choices[0].message.content.strip()
@@ -108,7 +108,7 @@ class OpenAIManager:
             messages=[
                 {"role": "system", "content": prompt_lead_estado_zoho(lead) },
             ],
-            max_tokens=100,
+            max_completion_tokens=100,
         )
         #print("Prompt lead :", prompt_lead_estado_zoho(lead))
         return response.choices[0].message.content.strip()
@@ -119,7 +119,7 @@ class OpenAIManager:
             messages=[
                 {"role": "system", "content": prompt_cliente_nombre(cliente, response_message,formatear_conversacion(conversation_actual))},
             ],
-            max_tokens=150,
+            max_completion_tokens=150,
         )
         return response.choices[0].message.content.strip()
 
