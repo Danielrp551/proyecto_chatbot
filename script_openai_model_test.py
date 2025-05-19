@@ -10,13 +10,13 @@ cliente = {
 }
 
 cliente_nuevo = True
-campania = "Promoción Especial de Mayo 🌸 - 40% de descuento en la consulta inicial"
+campania = "Promoción Especial de Mayo - 40% de descuento en la consulta inicial"
 
 # Llamada a la función
 
-mensaje = "Hola, ¿que servicios ofrecen?"
+mensaje = "que citas tienes para el martes 28?"
 
-mensaje_respuesta = openai.consulta_test_model(cliente, cliente_nuevo, campania, mensaje)
+mensaje_respuesta = openai.consulta_test_original(cliente, cliente_nuevo, campania, mensaje)
 
 
 # Visualización del resultado
