@@ -132,6 +132,9 @@ def enviar_respuesta(celular, cliente_nuevo, profileName):
     # regresariamos aqui en caso haya un error <- go to
     max_intentos = 5
     intento_actual = 0
+    # Verificar si la conversacion esta tomada por un asesor
+    if dbMySQLManager.conversacion_tomada_por_asesor(cliente_id_mysql):
+        return 
 
     while intento_actual < max_intentos:
         try:

@@ -600,3 +600,27 @@ class DataBaseMySQLManager:
         self.connection.commit()
         cursor.close()
         print(f"Cliente {cliente_id} se ha actualizado el campo in_out a {in_out_valor}.")
+
+    def conversacion_tomada_por_asesor(self, cliente_id):
+        """
+        Verificar si la conversacion de un cliente esta tomada por un asesor.
+
+        Args:
+            cliente_id (int): ID del cliente cuya conversación se marcará como tomada.
+        """
+        self._reconnect_if_needed()
+        cursor = self.connection.cursor()
+        query = "SELECT tipo_control FROM clientes WHERE cliente_id = %s"
+        cursor.execute(query, (cliente_id,))
+        result = cursor.fetchone()
+        cursor.close()
+        if result:
+            tipo_control = result[0]
+            if tipo_control == "asesor":
+                return True
+            elif tipo_control == "bot":
+                return False
+            else:
+                return False
+        else:
+            return False
