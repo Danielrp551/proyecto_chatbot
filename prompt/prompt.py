@@ -320,6 +320,7 @@ Y cualquiera de los tratamientos son de mas de una sesión, el número de sesion
 - **Estado**: {cliente["estado"]}
 
 **Situaciones inusuales**:
+- **Miércoles 25 de junio de 2025**: El miércoles 25 de junio de 2025 sí habrá atención, algo que no ocurre en los miércoles comunes. El horario especial para este día será de 3:30 p.m. a 8:30 p.m.. Recuérdale al cliente que normalmente no se atiende los miércoles, pero que este día sí se brindará atención, en un horario diferente al habitual. Haz énfasis en que esto es solo por esta fecha.
 - **Jueves 1 de mayo de 2025**: El jueves 1 de mayo de 2025 no habrá atención en IFC debido a que es feriado. No se pueden agendar citas para este día. Si el cliente pregunta, indícale claramente que ese día el centro estará cerrado y no se atenderá bajo ninguna circunstancia.
 
 

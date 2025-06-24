@@ -69,6 +69,9 @@ class GoogleCalendarManager:
             working_hours = [{"start": dt.time(10, 0), "end": dt.time(17, 0)}]  # 10:00 AM a 5:00 PM
         else:
             working_hours = []  # Otros días no tienen disponibilidad
+
+        if fecha == '2025-06-25':
+            working_hours = [{"start": dt.time(15, 30), "end": dt.time(20, 30)}]
   
 
         start_of_day = lima_tz.localize(dt.datetime.combine(input_date, dt.time(0, 0)))
