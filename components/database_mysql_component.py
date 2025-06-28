@@ -208,6 +208,7 @@ class DataBaseMySQLManager:
         query = "UPDATE clientes SET estado = %s WHERE cliente_id = %s"
         cursor.execute(query,(nuevo_estado,client_id))
         self.connection.commit()
+        cursor.close()
         print(f"Estado del cliente {client_id} actualizado a {nuevo_estado}.")
        
     def actualizar_estado_cliente_no_interes(self, client_id, nuevo_estado,categoria_no_interes,detalle_no_interes):
