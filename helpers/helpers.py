@@ -1,6 +1,8 @@
 import re
 import datetime
 import json
+from collections import defaultdict
+import calendar
 
 def plantilla_seguimiento_interesados_24_01_25():
     return """
@@ -224,3 +226,118 @@ def formatear_fecha_hora(fecha_str, hora_str):
     return fecha_formateada, hora_formateada
 
 
+def formatear_horarios_prompt_es_v3(horarios: list[dict]) -> str:
+    """
+    Devuelve un bloque de texto en español, agrupado por mes, listo para
+    incluirse en tu prompt.  Ejemplo de salida:
+
+    Horarios de atención:
+    - Junio:
+      • Todos los Martes de 13:30 a 20:30 (servicio capilar)
+      • Todos los Jueves de 13:30 a 20:30 (servicio capilar)
+      • Todos los Sábados de 10:00 a 17:00 (servicio capilar)
+      • El 28 de junio de 2025 de 08:00 a 21:00 (servicio facial)
+    - Julio:
+      • El 5 de julio de 2025 de 21:51 a 22:51 (servicio facial)
+    """
+
+    # Traducciones
+    meses_es = {
+        "january": "Enero", "february": "Febrero", "march": "Marzo",
+        "april": "Abril", "may": "Mayo", "june": "Junio",
+        "july": "Julio", "august": "Agosto", "september": "Septiembre",
+        "october": "Octubre", "november": "Noviembre", "december": "Diciembre"
+    }
+    dias_es = {
+        "monday": "Lunes", "tuesday": "Martes", "wednesday": "Miércoles",
+        "thursday": "Jueves", "friday": "Viernes",
+        "saturday": "Sábado", "sunday": "Domingo"
+    }
+
+    # --- Agrupar por mes inglés ----
+    agrupado = defaultdict(list)
+    for h in horarios:
+        agrupado[h["mes_horario"].lower()].append(h)
+
+    # --- Orden cronológico de los meses ---
+    def idx_mes(m):
+        return list(calendar.month_name).index(m.capitalize())
+
+    lineas = ["Horarios de atención:"]
+    for mes_ing in sorted(agrupado.keys(), key=idx_mes):
+        mes_es = meses_es.get(mes_ing, mes_ing.capitalize())
+        lineas.append(f"- {mes_es}:")
+        for h in agrupado[mes_ing]:
+            servicio = h["tipo_servicio"].lower().strip()  # facial | capilar
+            inicio, fin = h["inicio"], h["fin"]
+
+            if h["tipo_horario"].lower() == "recurrente":
+                dia = dias_es.get(h["dia_recurrente"].lower(), h["dia_recurrente"])
+                lineas.append(f"  • Todos los {dia} de {inicio} a {fin} (servicio {servicio})")
+            else:
+                # fecha_fijo puede venir como '28' o '2025-06-28'
+                fecha_raw = h["fecha_fijo"]
+                if len(fecha_raw) in (1, 2):                      # solo día
+                    año = datetime.now().year
+                    fecha = f"{int(fecha_raw)} de {mes_es.lower()} de {año}"
+                else:                                             # AAAA-MM-DD
+                    dt = datetime.strptime(fecha_raw, "%Y-%m-%d")
+                    mes_es_det = meses_es[calendar.month_name[dt.month].lower()]
+                    fecha = f"{dt.day} de {mes_es_det.lower()} de {dt.year}"
+
+                lineas.append(f"  • El {fecha} de {inicio} a {fin} (servicio {servicio})")
+
+    return "\n".join(lineas)
+
+
+# Índice de día en inglés (0 = Monday … 6 = Sunday)
+DAY_IDX_EN = {d.lower(): i for i, d in enumerate(calendar.day_name)}
+
+# Índice de mes en inglés (1 = January … 12 = December)
+MONTH_IDX_EN = {m.lower(): i for i, m in enumerate(calendar.month_name) if m}
+
+def dentro_horario_atencion(inicio, fin, horarios_tabla, tipo_servicio_cita):
+    """
+    True si la franja [inicio, fin] encaja en algún registro de horarios_tabla
+    - Día y mes correctos (recurrente)  O  fecha exacta (fijo)
+    - Intervalo horario completo dentro de h["inicio"]–h["fin"]
+    - Coincide el tipo de servicio: h["tipo_servicio"] == tipo_servicio_cita
+    """
+    # Normalizar a datetime completo
+    if isinstance(inicio, datetime.date) and not isinstance(inicio, datetime.datetime):
+        inicio = datetime.datetime.combine(inicio, datetime.time.min)
+    if isinstance(fin, datetime.date) and not isinstance(fin, datetime.datetime):
+        fin = datetime.datetime.combine(fin, datetime.time.min)
+
+    tipo_servicio_cita = tipo_servicio_cita.lower()
+
+    for h in horarios_tabla:
+        # Comparar tipo de servicio
+        if h["tipo_servicio"].lower() != tipo_servicio_cita:
+            continue
+
+        ini_hora = datetime.datetime.strptime(h["inicio"], "%H:%M").time()
+        fin_hora = datetime.datetime.strptime(h["fin"],   "%H:%M").time()
+        month_idx = MONTH_IDX_EN[h["mes_horario"]]
+
+        if h["tipo_horario"] == "recurrente":
+            if (inicio.weekday() == DAY_IDX_EN[h["dia_recurrente"]]
+                and inicio.month == month_idx
+                and ini_hora <= inicio.time() <= fin_hora
+                and ini_hora <= fin.time()   <= fin_hora):
+                return True
+
+        else:  # fijo
+            fecha_raw = h["fecha_fijo"]
+            if len(fecha_raw) >= 8:  # 'YYYY-MM-DD'
+                fecha_fija = datetime.datetime.strptime(fecha_raw, "%Y-%m-%d").date()
+            else:                    # solo día ('28')
+                day = int(fecha_raw)
+                fecha_fija = datetime.date(inicio.year, month_idx, day)
+
+            if (inicio.date() == fecha_fija
+                and ini_hora <= inicio.time() <= fin_hora
+                and ini_hora <= fin.time()   <= fin_hora):
+                return True
+
+    return False

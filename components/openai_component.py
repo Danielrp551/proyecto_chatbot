@@ -1,6 +1,6 @@
 from openai import OpenAI
 from api_keys.api_keys import openai_api_key
-from prompt.prompt import prompt_intenciones, prompt_lead_estado, prompt_cliente_nombre, prompt_lead_estado_zoho, prompt_intencionesv2,prompt_consulta_v4, prompt_consulta_v5, prompt_intencionesv3
+from prompt.prompt import prompt_intenciones, prompt_lead_estado, prompt_cliente_nombre, prompt_lead_estado_zoho, prompt_intencionesv2,prompt_consulta_v4, prompt_consulta_v5, prompt_intencionesv3, prompt_intencionesv4
 from helpers.helpers import formatear_conversacion, formatear_historial_conversaciones, formatear_horarios_disponibles
 import pytz
 from datetime import datetime
@@ -19,8 +19,8 @@ class OpenAIManager:
         )
         return response.choices[0].message.content.strip()
     
-    def consulta_v2(self, cliente, conversation_actual, conversation_history, cliente_nuevo, campania):
-        text = prompt_consulta_v5(cliente, cliente_nuevo, campania) + formatear_conversacion(conversation_actual)
+    def consulta_v2(self, cliente, conversation_actual, conversation_history, cliente_nuevo, campania,horarios_tabla_general):
+        text = prompt_consulta_v5(cliente, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual)
         return self.ejecutar_consulta_openai_v2(text)
     
     def consulta_test_original(self, cliente,cliente_nuevo,campania,mensaje):
@@ -44,8 +44,8 @@ class OpenAIManager:
         )
         return response.choices[0].message.content.strip()
     
-    def consultaNumOperacion_v2(self, cliente, conversation_actual, conversation_history, cliente_nuevo, campania):
-        text = prompt_consulta_v5(cliente, cliente_nuevo, campania) + formatear_conversacion(conversation_actual) + \
+    def consultaNumOperacion_v2(self, cliente, conversation_actual, conversation_history, cliente_nuevo, campania,horarios_tabla_general):
+        text = prompt_consulta_v5(cliente, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual) + \
             "\n Dile que su pago ya fue registrado con éxito y su cita ha sido confirmada. ¡Nos vemos en la cita!"
         return self.ejecutar_consulta_openai_v2(text)
     
@@ -56,7 +56,7 @@ class OpenAIManager:
         response = self.client.chat.completions.create(
             model="gpt-4.1-2025-04-14",
             messages=[
-                {"role": "system", "content": prompt_intencionesv3(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada},
+                {"role": "system", "content": prompt_intencionesv4(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada},
                 #{"role": "user", "content": conversacion_actual_formateada}
             ],
             max_tokens=100,
@@ -67,7 +67,7 @@ class OpenAIManager:
     
     def clasificar_intencion_v2(self, conversation_actual, conversation_history):
         conversacion_actual_formateada = formatear_conversacion(conversation_actual)
-        text = prompt_intencionesv3(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada
+        text = prompt_intencionesv4(datetime.now(pytz.timezone("America/Lima")).strftime("%Y-%m-%d")) + conversacion_actual_formateada
         text = text.strip()
 
         response = self.client.responses.create(
@@ -95,9 +95,9 @@ class OpenAIManager:
         )
         return response.choices[0].message.content.strip()
     
-    def consultaHorarios_v2(self, cliente_mysql, horarios_disponibles, conversation_actual, conversation_history, fecha, cliente_nuevo, campania):
+    def consultaHorarios_v2(self, cliente_mysql, horarios_disponibles, conversation_actual, conversation_history, fecha, cliente_nuevo, campania,horarios_tabla_general):
         horarios_text = formatear_horarios_disponibles(horarios_disponibles)
-        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania) + formatear_conversacion(conversation_actual) + f"\n Los horarios disponibles para que le digas al cliente son: {horarios_text}"
+        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual) + f"\n Los horarios disponibles para que le digas al cliente son: {horarios_text}"
         text = text.strip()
 
         response = self.client.responses.create(
@@ -124,8 +124,8 @@ class OpenAIManager:
         )
         return response.choices[0].message.content.strip()
     
-    def consultaCitareservada_v2(self, cliente_mysql, reserva_cita, conversation_actual, conversation_history, cliente_nuevo, campania):
-        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania) + formatear_conversacion(conversation_actual) + \
+    def consultaCitareservada_v2(self, cliente_mysql, reserva_cita, conversation_actual, conversation_history, cliente_nuevo, campania,horarios_tabla_general):
+        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual) + \
             "\n Dile que la cita ha sido reservada para el ... y mándale la información para pagar vía Yape. Indícale que debe realizar el pago total o, si lo prefiere, un abono parcial (mínimo 30 soles) a través de Yape al número 943507504. Recuerda pedirle que, una vez efectuado el pago, nos envíe el número de operación del yapeo para poder registrar su pago."
         text = text.strip()
 
@@ -153,8 +153,8 @@ class OpenAIManager:
         )
         return response.choices[0].message.content.strip()
     
-    def consultaCitaDelCliente_v2(self, cliente_mysql, cita, conversation_actual, conversation_history, cliente_nuevo, campania):
-        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania) + formatear_conversacion(conversation_actual) + \
+    def consultaCitaDelCliente_v2(self, cliente_mysql, cita, conversation_actual, conversation_history, cliente_nuevo, campania,horarios_tabla_general):
+        text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual) + \
             "\n Informa al cliente que ya tiene una cita agendada en esa fecha y horario. Responde de forma adecuada."
         text = text.strip()
 

@@ -624,3 +624,35 @@ class DataBaseMySQLManager:
                 return False
         else:
             return False
+        
+
+    def obtener_horarios_mes(self, mes_horario=None, tipo_servicio=None, todos=False):
+        """
+        Devuelve los horarios almacenados según los filtros indicados.
+        Si 'todos' es True, devuelve toda la tabla sin filtros.
+        Si no se pasa argumento de mes, usa el mes actual (en inglés-lowercase, p. ej. 'june').
+
+        Args:
+            mes_horario (str | None): Nombre del mes (en inglés, ej. 'march').
+            tipo_servicio (str | None): Tipo de servicio.
+            todos (bool): Si es True, ignora los filtros y devuelve toda la tabla.
+        Returns:
+            list[dict]: Filas de la tabla 'horarios'.
+        """
+        self._reconnect_if_needed()
+
+        cursor = self.connection.cursor(dictionary=True)
+        if todos:
+            sql = "SELECT * FROM horarios ORDER BY inicio ASC"
+            cursor.execute(sql)
+        else:
+            if mes_horario is None:
+                fecha = datetime.now()
+                print("Fecha hoy:", fecha)
+                mes_horario = datetime.now().strftime("%B").lower()
+            print(f"Obteniendo horarios para el mes: {mes_horario}")
+            sql = "SELECT * FROM horarios WHERE mes_horario = %s AND tipo_servicio = %s ORDER BY inicio ASC"
+            cursor.execute(sql, (mes_horario, tipo_servicio))
+        horarios = cursor.fetchall()
+        cursor.close()
+        return horarios

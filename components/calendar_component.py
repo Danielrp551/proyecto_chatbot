@@ -6,6 +6,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.errors import HttpError
 import pytz
 import os.path
+from helpers.helpers import dentro_horario_atencion
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
@@ -56,22 +57,48 @@ class GoogleCalendarManager:
             print(f"Error al listar calendarios: {e}")
 
 
-    def listar_horarios_disponibles(self, fecha, max_results=10):
+    def listar_horarios_disponibles(self, fecha, max_results=10,horarios_tabla=None):
         """Listar horarios disponibles para una fecha."""
         lima_tz = pytz.timezone('America/Lima')
         hoy = dt.datetime.now(lima_tz).date()
         input_date = dt.datetime.strptime(fecha, '%Y-%m-%d')  # Define input_date antes de usarlo
+        day_label   = input_date.strftime("%A").lower()
+        month_label = input_date.strftime("%B").lower()
+        day_number  = input_date.day 
+
+        working_hours = []
+
+        if horarios_tabla:
+            for h in horarios_tabla:
+                # a) Recurrentes: coinciden día de la semana
+                if (
+                    h["tipo_horario"] == "recurrente"
+                    and h["dia_recurrente"] == day_label
+                ):
+                    start = dt.datetime.strptime(h["inicio"], "%H:%M").time()
+                    end   = dt.datetime.strptime(h["fin"],   "%H:%M").time()
+                    working_hours.append({"start": start, "end": end})
+
+                # b) Fijos: coinciden día del mes y mes
+                elif (
+                    h["tipo_horario"] == "fijo"
+                    and int(h["fecha_fijo"]) == day_number
+                    and h["mes_horario"] == month_label
+                ):
+                    start = dt.datetime.strptime(h["inicio"], "%H:%M").time()
+                    end   = dt.datetime.strptime(h["fin"],   "%H:%M").time()
+                    working_hours.append({"start": start, "end": end})
 
         # Definir horarios según el día de la semana
-        if input_date.weekday() in [1, 3]:  # Martes y jueves
-            working_hours = [{"start": dt.time(13, 30), "end": dt.time(20, 30)}]  # 1:30 PM a 8:30 PM
-        elif input_date.weekday() == 5:  # Sábados
-            working_hours = [{"start": dt.time(10, 0), "end": dt.time(17, 0)}]  # 10:00 AM a 5:00 PM
-        else:
-            working_hours = []  # Otros días no tienen disponibilidad
+        #if input_date.weekday() in [1, 3]:  # Martes y jueves
+        #    working_hours = [{"start": dt.time(13, 30), "end": dt.time(20, 30)}]  # 1:30 PM a 8:30 PM
+        #elif input_date.weekday() == 5:  # Sábados
+        #    working_hours = [{"start": dt.time(10, 0), "end": dt.time(17, 0)}]  # 10:00 AM a 5:00 PM
+        #else:
+        #    working_hours = []  # Otros días no tienen disponibilidad
 
-        if fecha == '2025-06-25':
-            working_hours = [{"start": dt.time(15, 30), "end": dt.time(20, 30)}]
+        #if fecha == '2025-06-25':
+        #    working_hours = [{"start": dt.time(15, 30), "end": dt.time(20, 30)}]
   
 
         start_of_day = lima_tz.localize(dt.datetime.combine(input_date, dt.time(0, 0)))
@@ -192,7 +219,7 @@ class GoogleCalendarManager:
             print(f"Error al verificar disponibilidad: {e}")
             return False
 
-    def reservar_cita(self, fecha_hora, summary="Cita reservada", timezone="America/Lima", duration_minutes=60, attendees=None):
+    def reservar_cita(self, fecha_hora, summary="Cita reservada", timezone="America/Lima", duration_minutes=60, attendees=None,horarios_tabla=None,tipo_servicio_cita=None):
         """
         Reservar una cita en el calendario configurado.
         
@@ -209,6 +236,11 @@ class GoogleCalendarManager:
 
             # Calcular la fecha y hora de fin sumando la duración de la cita
             end_datetime = start_datetime + dt.timedelta(minutes=duration_minutes)
+
+            # Validar que la fecha y hora esten en el horario de atención
+            if horarios_tabla and not dentro_horario_atencion(start_datetime, end_datetime, horarios_tabla,tipo_servicio_cita):
+                print("Fuera de horario de atención")
+                return "Fuera de horario de atención"
 
             # Verificar si el horario está disponible
             if not self.is_time_available(start_datetime, end_datetime):
