@@ -54,6 +54,9 @@ def json_a_lista(datos):
     if "nombre" in datos:
         resultado.append(datos["nombre"])
 
+    if "servicio" in datos:
+        resultado.append(datos["servicio"])
+
     return resultado
 
 def extraer_json(texto):
@@ -278,10 +281,10 @@ def formatear_horarios_prompt_es_v3(horarios: list[dict]) -> str:
                 # fecha_fijo puede venir como '28' o '2025-06-28'
                 fecha_raw = h["fecha_fijo"]
                 if len(fecha_raw) in (1, 2):                      # solo día
-                    año = datetime.now().year
+                    año = datetime.datetime.now().year
                     fecha = f"{int(fecha_raw)} de {mes_es.lower()} de {año}"
                 else:                                             # AAAA-MM-DD
-                    dt = datetime.strptime(fecha_raw, "%Y-%m-%d")
+                    dt = datetime.datetime.strptime(fecha_raw, "%Y-%m-%d")
                     mes_es_det = meses_es[calendar.month_name[dt.month].lower()]
                     fecha = f"{dt.day} de {mes_es_det.lower()} de {dt.year}"
 
