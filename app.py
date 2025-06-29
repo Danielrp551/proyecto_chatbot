@@ -172,7 +172,10 @@ def enviar_respuesta(celular, cliente_nuevo, profileName):
                         try:
                             tipo_servicio = intencion_list[2].strip().lower() # 'facial' o 'capilar'
                             print("Tipo de servicio:", tipo_servicio)
-                            horarios_tabla = dbMySQLManager.obtener_horarios_mes(tipo_servicio=tipo_servicio)
+                            fecha__horario_cita = datetime.strptime(intencion_list[1].strip(), '%Y-%m-%d') # fecha de la cita
+                            mes_horario_cita = fecha__horario_cita.strftime('%B').lower() # mes de la cita
+                            print("Mes de la cita:", mes_horario_cita)
+                            horarios_tabla = dbMySQLManager.obtener_horarios_mes(tipo_servicio=tipo_servicio,mes_horario=mes_horario_cita)
                             horarios_disponibles = calendar.listar_horarios_disponibles(intencion_list[1].strip(),horarios_tabla=horarios_tabla)
                             print("Horarios disponibles:", horarios_disponibles)
                             response_message = openai.consultaHorarios_v2(cliente_mysql,horarios_disponibles,conversation_actual,conversation_history,intencion_list[1],cliente_nuevo,campania,horarios_tabla_general)
