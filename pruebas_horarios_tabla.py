@@ -7,7 +7,8 @@ from datetime import datetime
 
 dbMySQLManager = DataBaseMySQLManager()
 
-horarios_tabla = dbMySQLManager.obtener_horarios_mes(tipo_servicio="facial",mes_horario="july")
+#horarios_tabla = dbMySQLManager.obtener_horarios_mes(tipo_servicio="facial",mes_horario="july")
+horarios_tabla = dbMySQLManager.obtener_horarios_mes(tipo_servicio="facial",mes_horario="july",todos=True)
 fecha = "2025-07-17"  # Fecha de ejemplo, puedes cambiarla según sea necesario
 
 print("Horarios del mes:", horarios_tabla)
