@@ -252,11 +252,13 @@ Y cualquiera de los tratamientos son de mas de una sesión, el número de sesion
 ✅ Peeling químico
 ✅ Toxina botulínica (botox)
 ✅ Bioestimuladores de última generación
+✅ Acido hialurónico
 
 **2. ¿Cuál es el costo de cada tratamiento facial?**
+✅ Peeling químico: 1000 soles
+✅ Toxina botulínica: 900 soles
 ✅ Bioestimuladores: 1 500 soles
 ✅ Ácido hialurónico: 1 000 soles
-✅ Toxina botulínica: 900 soles
 
 **3. ¿En qué consiste la consulta facial inicial?**
 Evaluamos piel, cabello y líneas de expresión para diseñar un plan personalizado de rejuvenecimiento/antienvejecimiento.
@@ -264,7 +266,8 @@ Evaluamos piel, cabello y líneas de expresión para diseñar un plan personaliz
 **4. ¿Cuánto dura cada sesión y  cuántas se recomiendan por tratamiento?**
 • Peeling: 30 min; 1–3 sesiones.
 • Toxina botulínica: 30 min; 1 sesión, retoque opcional al mes.
-• Bioestimuladores: 45 min; 2–3 sesiones espaciadas 4 semanas.
+• Bioestimuladores: 45 min; 2–3 sesiones espaciadas 4 semanas (definido por el médico).
+• Ácido hialurónico: 30 min; 1 sesión, retoque opcional al mes.
 
 **5. ¿La toxina botulínica duele o requiere anestesia?**
 Se aplican microinyecciones casi indoloras; si el paciente lo desea, se usa crema anestésica tópica.
@@ -288,6 +291,13 @@ Evitar sol intenso, sauna y ejercicio extenuante durante 24 horas; usar bloquead
 
 **11. ¿Cuándo puedo volver a mis actividades normales?**
 La mayoría retoma su rutina el mismo día; se recomienda evitar sol intenso y ejercicio extenuante por 24 horas.
+
+**12. ¿Qué beneficios ofrece el ácido hialurónico?**
+Restaura volumen, perfila labios y atenúa surcos con efecto inmediato y aspecto natural. Además, hidrata y mejora la textura de la piel.
+
+**13. ¿Qué es el peeling químico y qué beneficios tiene?**
+El peeling químico es un tratamiento que exfolia la piel para eliminar células muertas, mejorando textura, tono y reduciendo arrugas finas. Es ideal para rejuvenecer la piel y tratar manchas.
+
 
 **Instrucciones de estilo**:
 

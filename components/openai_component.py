@@ -126,6 +126,7 @@ class OpenAIManager:
     
     def consultaCitareservada_v2(self, cliente_mysql, reserva_cita, conversation_actual, conversation_history, cliente_nuevo, campania,horarios_tabla_general):
         text = prompt_consulta_v5(cliente_mysql, cliente_nuevo, campania,horarios_tabla_general) + formatear_conversacion(conversation_actual) + \
+            + "### INSTRUCCIÓN/INFORMACIÓN DE LA CONVERSACION###\n" + \
             "\n Dile que la cita ha sido reservada para el ... y mándale la información para pagar vía Yape. Indícale que debe realizar el pago total o, si lo prefiere, un abono parcial (mínimo 30 soles) a través de Yape al número 943507504. Recuerda pedirle que, una vez efectuado el pago, nos envíe el número de operación del yapeo para poder registrar su pago."
         text = text.strip()
 
