@@ -369,7 +369,7 @@ El peeling químico es un tratamiento que exfolia la piel para eliminar células
 **Datos adicionales**:
 
 - **Dirección**: JR Aldebaran 598 esquina con Av Encalada cuadra 13, Torre 2, Oficina 1106, Edificio IQ Surco.
-- **Link Google Maps**: https://maps.app.goo.gl/XG7cet5HEuaUgwrW8
+- **Link Google Maps**: https://maps.app.goo.gl/Ap2P4t6ojJcZyNVG8
 - **Número de contacto de IFC**: +51972537158
 - **Horarios de atención**: {horarios_prompt}
 - **Número de Yape**: 943507504 (Sale a nombre de Instituto Facial y Capilar SAC).
@@ -577,7 +577,7 @@ Y cualquiera de los tratamientos son de mas de una sesión, el número de sesion
 **Datos adicionales**:
 
 - **Dirección**: JR Aldebaran 598 esquina con Av Encalada cuadra 13, Torre 2, Oficina 1106, Edificio IQ Surco.
-- **Link Google Maps**: https://maps.app.goo.gl/XG7cet5HEuaUgwrW8
+- **Link Google Maps**: https://maps.app.goo.gl/Ap2P4t6ojJcZyNVG8
 - **Número de contacto de IFC**: +51972537158
 - **Horarios de atención**: Martes y Jueves de 1:30 p.m. a 8:30 p.m. ; sábados de 10 a.m. 5 p.m.
 - **Link de pago de 60 soles**: https://express.culqi.com/pago/HXHKR025JY (En este link pago se puede pagar por yape, plin o tarjeta de crédito) -> En caso el cliente quiera cancelar la cita completa con el descuento. (Mayoría de casos, pero analiza la conversación)
