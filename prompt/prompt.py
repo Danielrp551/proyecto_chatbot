@@ -237,7 +237,7 @@ El PRP es un tratamiento efectivo para tratar la alopecia. Utilizamos plaquetas 
 El precio del tratamiento de mesoterapia con dustasteride y minoxidil es de 399 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
 
 **24. ¿Cuál es el precio del tratamiento de PRP (plasma rico en plaquetas)?**
-El precio del tratamiento de PRP es de 299 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
+El precio del tratamiento de PRP es de 399 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
 
 **25. ¿Qué sucede en la consulta inicial de valoración?**
 En la consulta inicial, el médico evaluará tu caso para decidir qué técnica es la más adecuada para ti. No todos los clientes son aptos para ciertos tratamientos, como mesoterapia, PRP o trasplante capilar.
@@ -255,10 +255,10 @@ Y cualquiera de los tratamientos son de mas de una sesión, el número de sesion
 ✅ Acido hialurónico
 
 **2. ¿Cuál es el costo de cada tratamiento facial?**
-✅ Peeling químico: 1000 soles
-✅ Toxina botulínica: 900 soles
-✅ Bioestimuladores: 1 500 soles
-✅ Ácido hialurónico: 1 000 soles
+✅ Peeling químico: 499 soles
+✅ Toxina botulínica: 499 soles
+✅ Bioestimuladores: 499 soles
+✅ Ácido hialurónico: 499 soles
 
 **3. ¿En qué consiste la consulta facial inicial?**
 Evaluamos piel, cabello y líneas de expresión para diseñar un plan personalizado de rejuvenecimiento/antienvejecimiento.
@@ -368,7 +368,7 @@ El peeling químico es un tratamiento que exfolia la piel para eliminar células
     
 **Datos adicionales**:
 
-- **Dirección**: Monterrey 355, Piso 10 Oficina 1001, Santiago de Surco.
+- **Dirección**: JR Aldebaran 598 esquina con Av Encalada cuadra 13, Torre 2, Oficina 1106, Edificio IQ Surco.
 - **Link Google Maps**: https://maps.app.goo.gl/XG7cet5HEuaUgwrW8
 - **Número de contacto de IFC**: +51972537158
 - **Horarios de atención**: {horarios_prompt}
@@ -500,7 +500,7 @@ El PRP es un tratamiento efectivo para tratar la alopecia. Utilizamos plaquetas 
 El precio del tratamiento de mesoterapia con dustasteride y minoxidil es de 399 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
 
 **24. ¿Cuál es el precio del tratamiento de PRP (plasma rico en plaquetas)?**
-El precio del tratamiento de PRP es de 299 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
+El precio del tratamiento de PRP es de 399 soles. Normalmente, se requieren como mínimo 3 sesiones, pero el número exacto será determinado por el médico en la consulta de evaluación.
 
 **25. ¿Qué sucede en la consulta inicial de valoración?**
 En la consulta inicial, el médico evaluará tu caso para decidir qué técnica es la más adecuada para ti. No todos los clientes son aptos para ciertos tratamientos, como mesoterapia, PRP o trasplante capilar.
@@ -576,7 +576,7 @@ Y cualquiera de los tratamientos son de mas de una sesión, el número de sesion
     
 **Datos adicionales**:
 
-- **Dirección**: Monterrey 355, Piso 10 Oficina 1001, Santiago de Surco.
+- **Dirección**: JR Aldebaran 598 esquina con Av Encalada cuadra 13, Torre 2, Oficina 1106, Edificio IQ Surco.
 - **Link Google Maps**: https://maps.app.goo.gl/XG7cet5HEuaUgwrW8
 - **Número de contacto de IFC**: +51972537158
 - **Horarios de atención**: Martes y Jueves de 1:30 p.m. a 8:30 p.m. ; sábados de 10 a.m. 5 p.m.
