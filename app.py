@@ -9,6 +9,7 @@ import redis
 from datetime import datetime, timedelta
 from celery_app import celery
 from flask import Flask, request, jsonify
+from twilio.twiml.messaging_response import MessagingResponse
 from components.twilio_component import TwilioManager
 from components.openai_component import OpenAIManager
 from components.calendar_component import GoogleCalendarManager
@@ -371,11 +372,15 @@ def whatsapp_bot():
 
         print(f"Tarea programada {new_task.id} para {celular}")
 
-        return 'OK', 200
+        # Devolver TwiML vacío válido para Twilio
+        resp = MessagingResponse()
+        return str(resp), 200, {'Content-Type': 'application/xml'}
 
     except Exception as e:
         print("Error en whatsapp_bot:", e)
-        return "Error interno del servidor", 500
+        # Devolver TwiML vacío incluso en caso de error
+        resp = MessagingResponse()
+        return str(resp), 500, {'Content-Type': 'application/xml'}
 
 
 def es_transicion_valida(estado_actual, nuevo_estado):
